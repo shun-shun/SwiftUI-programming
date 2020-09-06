@@ -8,39 +8,36 @@
 
 import SwiftUI
 
+struct MyData:Identifiable {
+    var id = UUID()
+    
+    var msg:String
+    var c:Color
+}
+
 struct ContentView: View {
+        
+    @State var msg:String = "Click"
+    @State var cont:Int = 0
+    
     var body: some View {
         VStack {
-            HStack{
-                Text("[First]")
-                    .font(.largeTitle)
-//                    .frame(width:150)
-//                    .border(Color.red, width: 2)
-//                    .padding(10)
-                Text("[Second]")
+            Text(self.msg)
                 .font(.largeTitle)
-//                .frame(width:150)
-//                .border(Color.red, width: 2)
-//                .padding(10)
-                
-            }.frame(width: 300, height: 100)
-                .border(Color.red, width: 2)
-                .padding(10)
             
-            HStack {
-                Text("[Third]")
-                    .font(.largeTitle)
-//                    .frame(width:150)
-//                    .border(Color.red, width: 2)
-//                    .padding(10)
-                Text("[Fourth]")
-                .font(.largeTitle)
-//                .frame(width:150)
-//                .border(Color.red, width: 2)
-//                .padding(10)
-            }.frame(width: 300, height: 100)
-            .border(Color.red, width: 2)
-            .padding(10)
+            Spacer(minLength: 20).fixedSize()
+            
+            Button(action:{
+                self.cont += 1
+                self.msg = "Count: \(self.cont)"
+            }, label:{
+                Text("Button")
+                    .font(.title)
+                .frame(width: 200, height: 50)
+                    .border(Color.blue)
+            })
+            
+            Spacer(minLength: 10)
         }
         
         
