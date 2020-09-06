@@ -17,8 +17,8 @@ struct MyData:Identifiable {
 
 struct ContentView: View {
         
-    @State var msg:String = "Click"
-    @State var cont:Int = 0
+    @State var msg:String = "your name:"
+    @State var input:String = ""
     
     var body: some View {
         VStack {
@@ -27,17 +27,21 @@ struct ContentView: View {
             
             Spacer(minLength: 20).fixedSize()
             
-            Button(action:{
-                self.cont += 1
-                self.msg = "Count: \(self.cont)"
-            }, label:{
-                Text("Button")
-                    .font(.title)
-                .frame(width: 200, height: 50)
-                    .border(Color.blue)
-            })
+            TextField("", text: $input)
+                .font(.headline)
+                .padding(10)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             
             Spacer(minLength: 10)
+            
+            Button(action:{
+                self.msg = "Hello, \(self.input)!!"
+            }, label: {
+                Text("button")
+                    .font(.title)
+            })
+            
+            Spacer(minLength: 0)
         }
         
         
