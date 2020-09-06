@@ -23,22 +23,18 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text(self.msg)
-                .font(.largeTitle)
-                .frame(width: UIScreen.main.bounds.size.width, height: 70)
-                .background(self.c)
-                .onTapGesture(count: 2) {
-                    self.msg = "Double Tap!"
+            .font(.title)
+            .frame(width: UIScreen.main.bounds.size.width, height: 70)
+            .background(self.c)
+            .onLongPressGesture(minimumDuration: 1.0,  pressing: { f in
+                if f {
+                    self.msg = "tap..."
                     self.c = Color.yellow
+                } else {
+                    self.c = Color.red
                 }
-            
-            Spacer(minLength: 20).fixedSize()
-            
-            Text("clear")
-                .font(.title)
-                .foregroundColor(Color.blue)
-                .onTapGesture {
-                    self.msg = "Start"
-                    self.c = Color.white
+            }){
+                self.msg = "log tapped!"
             }
             
             Spacer(minLength: 0)
