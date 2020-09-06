@@ -18,25 +18,28 @@ struct MyData:Identifiable {
 struct ContentView: View {
         
     @State var msg:String = "Start!"
-    @State var input:String = ""
+    @State var c:Color = Color.white
     
     var body: some View {
         VStack {
             Text(self.msg)
                 .font(.largeTitle)
+                .frame(width: UIScreen.main.bounds.size.width, height: 70)
+                .background(self.c)
+                .onTapGesture(count: 2) {
+                    self.msg = "Double Tap!"
+                    self.c = Color.yellow
+                }
             
             Spacer(minLength: 20).fixedSize()
             
-            TextField("oh!!", text: $input, onEditingChanged: { edit in
-                if edit {
-                    self.msg = "editing..."
-                }
-            }, onCommit: {
-                self.msg = "typed: \(self.input)!!"
-            })
-                .font(.headline)
-                .padding(10)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            Text("clear")
+                .font(.title)
+                .foregroundColor(Color.blue)
+                .onTapGesture {
+                    self.msg = "Start"
+                    self.c = Color.white
+            }
             
             Spacer(minLength: 0)
         }
