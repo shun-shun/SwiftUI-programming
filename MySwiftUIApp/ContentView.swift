@@ -17,7 +17,7 @@ struct MyData:Identifiable {
 
 struct ContentView: View {
         
-    @State var msg:String = "your name:"
+    @State var msg:String = "Start!"
     @State var input:String = ""
     
     var body: some View {
@@ -27,19 +27,16 @@ struct ContentView: View {
             
             Spacer(minLength: 20).fixedSize()
             
-            TextField("", text: $input)
+            TextField("oh!!", text: $input, onEditingChanged: { edit in
+                if edit {
+                    self.msg = "editing..."
+                }
+            }, onCommit: {
+                self.msg = "typed: \(self.input)!!"
+            })
                 .font(.headline)
                 .padding(10)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            Spacer(minLength: 10)
-            
-            Button(action:{
-                self.msg = "Hello, \(self.input)!!"
-            }, label: {
-                Text("button")
-                    .font(.title)
-            })
             
             Spacer(minLength: 0)
         }
