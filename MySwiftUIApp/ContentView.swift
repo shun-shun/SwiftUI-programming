@@ -8,39 +8,25 @@
 
 import SwiftUI
 
-struct MyData:Identifiable {
-    var id = UUID()
-    
-    var msg:String
-    var c:Color
-}
-
 struct ContentView: View {
         
-    @State var msg:String = "Start!"
-    @State var c:Color = Color.white
+    @State var flg = true
     
     var body: some View {
         VStack {
-            Text(self.msg)
-            .font(.title)
-            .frame(width: UIScreen.main.bounds.size.width, height: 70)
-            .background(self.c)
-            .onLongPressGesture(minimumDuration: 1.0,  pressing: { f in
-                if f {
-                    self.msg = "tap..."
-                    self.c = Color.yellow
-                } else {
-                    self.c = Color.red
-                }
-            }){
-                self.msg = "log tapped!"
-            }
+            Text("value: \(flg ? "ON": "OFF")")
+                .font(.largeTitle)
+                .foregroundColor(flg ? Color.black : Color.gray)
+            Divider()
+            
+            Toggle(isOn: $flg, label: {
+                Text("Toggle")
+                    .font(.headline)
+            })
+            Divider()
             
             Spacer(minLength: 0)
         }
-        
-        
     }
 }
 
