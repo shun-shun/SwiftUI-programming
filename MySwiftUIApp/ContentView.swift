@@ -10,19 +10,22 @@ import SwiftUI
 
 struct ContentView: View {
         
-    @State var flg = true
+    @State var val = 0.0
+    @State var flg = false
     
     var body: some View {
         VStack {
-            Text("value: \(flg ? "ON": "OFF")")
+            Text("value: \(Int(val))")
                 .font(.largeTitle)
-                .foregroundColor(flg ? Color.black : Color.gray)
+                .foregroundColor(flg ? Color.red : Color.black)
+            
             Divider()
             
-            Toggle(isOn: $flg, label: {
-                Text("Toggle")
-                    .font(.headline)
+            Slider(value: $val, in:0...100, step:5,
+                   onEditingChanged: {f in
+                    self.flg = f
             })
+            
             Divider()
             
             Spacer(minLength: 0)
