@@ -11,20 +11,29 @@ import SwiftUI
 struct ContentView: View {
         
     @State var val = 0.0
-    @State var flg = false
     
     var body: some View {
         VStack {
-            Text("value: \(Int(val))")
+            Text("value: \(val)")
                 .font(.largeTitle)
-                .foregroundColor(flg ? Color.red : Color.black)
+                .foregroundColor(Color(red:val, green:1.0 - val, blue:1.0 - val))
             
             Divider()
             
-            Slider(value: $val, in:0...100, step:5,
-                   onEditingChanged: {f in
-                    self.flg = f
+            Stepper("Stepp",
+            onIncrement:{
+                self.val += 0.05
+                if self.val > 1.0 {
+                    self.val = 1.0
+                }
+            },
+            onDecrement: {
+                self.val -= 0.05
+                if self.val < 0 {
+                    self.val = 0.0
+                }
             })
+            .padding(20)
             
             Divider()
             
