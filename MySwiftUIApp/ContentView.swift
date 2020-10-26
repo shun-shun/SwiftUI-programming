@@ -14,12 +14,15 @@ struct ContentView: View {
     @State var pass = ""
     
     var body: some View {
-        Form {
+        VStack {
             Text("name:\(self.name)\n (pass:\(self.pass))").font(.title)
+            Form {
+                TextField("Name", text: $name)
+                
+                SecureField("Password", text: $pass)
+            }
             
-            TextField("Name", text: $name)
-            
-            SecureField("Password", text: $pass)
+            Text("copyright 2020.").font(.footnote)
         }
     }
 }
