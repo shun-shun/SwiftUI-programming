@@ -9,33 +9,41 @@
 import SwiftUI
 
 struct ContentView: View {
-        
-    @State var val = 0.0
+    
+    @State var msg = "Start!"
+    @State var count = 0
+    @State var data:[String] = []
     
     var body: some View {
         VStack {
-            Text("value: \(val)")
-                .font(.largeTitle)
-                .foregroundColor(Color(red:val, green:1.0 - val, blue:1.0 - val))
+            Text(msg)
+                .font(.title)
             
             Divider()
             
             Stepper("Stepp",
             onIncrement:{
-                self.val += 0.05
-                if self.val > 1.0 {
-                    self.val = 1.0
-                }
+                self.count += 1
+                self.data.append("No, \(self.count)")
+                self.msg = "add 'No, \(self.count)'"
             },
             onDecrement: {
-                self.val -= 0.05
-                if self.val < 0 {
-                    self.val = 0.0
+                if self.count > 0 {
+                    self.count -= 1
+                    let re = self.data.popLast()
+                    self.msg = "'\(re ?? "?")' removed."
                 }
             })
             .padding(20)
             
             Divider()
+
+            ForEach(data, id: \.self) { item in
+                VStack {
+                    Text(item).font(.headline).padding(10)
+                    Divider()
+                }
+            }
             
             Spacer(minLength: 0)
         }
