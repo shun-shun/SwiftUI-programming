@@ -10,26 +10,24 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var data:[String] = [
-        "One", "Two", "Three", "Four", "Five",
-        "Six", "Seven", "Eight", "Nine", "Ten"
-    ]
-    @State var val:Int = 0
+    @State var val:Date = Date()
+    let f = DateFormatter()
+    
+    init() {
+        f.timeStyle = .none
+        f.dateStyle = .full
+        f.locale = Locale(identifier: "ja_JP")
+    }
     
     var body: some View {
         VStack {
-            Text("selected: '\(data[self.val])'.")
-                .font(.largeTitle)
+            Text(f.string(from: val))
+                .font(.title)
             
             Divider()
             
-            Picker("data", selection: $val,
-                    content: {
-                ForEach(0 ..< data.count) { n in
-                     Text(self.data[n])
-                }
-            })
-
+            DatePicker("Date", selection: $val, displayedComponents: .hourAndMinute)
+            
             Divider()
             
             Spacer(minLength: 0)
