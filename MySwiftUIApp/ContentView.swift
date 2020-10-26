@@ -10,27 +10,16 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var val:Date = Date()
-    let f = DateFormatter()
-    
-    init() {
-        f.timeStyle = .none
-        f.dateStyle = .full
-        f.locale = Locale(identifier: "ja_JP")
-    }
+    @State var name = ""
+    @State var pass = ""
     
     var body: some View {
-        VStack {
-            Text(f.string(from: val))
-                .font(.title)
+        Form {
+            Text("name:\(self.name)\n (pass:\(self.pass))").font(.title)
             
-            Divider()
+            TextField("Name", text: $name)
             
-            DatePicker("Date", selection: $val, displayedComponents: .hourAndMinute)
-            
-            Divider()
-            
-            Spacer(minLength: 0)
+            SecureField("Password", text: $pass)
         }
     }
 }
