@@ -10,40 +10,27 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var msg = "Start!"
-    @State var count = 0
-    @State var data:[String] = []
+    @State var data:[String] = [
+        "One", "Two", "Three", "Four", "Five",
+        "Six", "Seven", "Eight", "Nine", "Ten"
+    ]
+    @State var val:Int = 0
     
     var body: some View {
         VStack {
-            Text(msg)
-                .font(.title)
+            Text("selected: '\(data[self.val])'.")
+                .font(.largeTitle)
             
             Divider()
             
-            Stepper("Stepp",
-            onIncrement:{
-                self.count += 1
-                self.data.append("No, \(self.count)")
-                self.msg = "add 'No, \(self.count)'"
-            },
-            onDecrement: {
-                if self.count > 0 {
-                    self.count -= 1
-                    let re = self.data.popLast()
-                    self.msg = "'\(re ?? "?")' removed."
+            Picker("data", selection: $val,
+                    content: {
+                ForEach(0 ..< data.count) { n in
+                     Text(self.data[n])
                 }
             })
-            .padding(20)
-            
-            Divider()
 
-            ForEach(data, id: \.self) { item in
-                VStack {
-                    Text(item).font(.headline).padding(10)
-                    Divider()
-                }
-            }
+            Divider()
             
             Spacer(minLength: 0)
         }
