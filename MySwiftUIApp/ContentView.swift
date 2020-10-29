@@ -8,9 +8,24 @@
 
 import SwiftUI
 
+struct ItemView:View,Identifiable {
+    var id = UUID()
+    let msg:String
+    let c:Color
+    
+    var body:some View {
+        Text(msg).foregroundColor(c)
+    }
+}
+
 struct ContentView: View {
     
-    let data = ["One", "Two", "Three", "Four", "Five"]
+    let data = [
+        ItemView(msg: "Red", c: Color.red),
+        ItemView(msg: "Green", c: Color.green),
+        ItemView(msg: "Blue", c: Color.blue),
+        ItemView(msg: "Yellow", c: Color.yellow)
+    ]
     @State var msg = ""
     
     var body: some View {
@@ -19,9 +34,9 @@ struct ContentView: View {
                 .font(.largeTitle)
             
             Form {
-                Section(header: Text("Account").font(.headline)) {
-                    List(data, id:\.self) { item in
-                        Text(item)
+                Section() {
+                    List(data) { item in
+                        item
                     }
                 }
             }
