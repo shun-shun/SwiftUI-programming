@@ -12,22 +12,27 @@ struct ContentView: View {
     
     @State var name = ""
     @State var pass = ""
-    @State var pass2 = ""
+    @State var flg = false
     
     var body: some View {
         VStack {
-            Text("name:\(self.name)\n \(self.pass == self.pass2 ? "password is OK!" : "password mismatch.")")
+            Text("name:\(self.name)\n (pass:\(self.pass))")
                 .font(.title)
             
             Form {
                 Section(header: Text("Account").font(.headline)) {
-                    TextField("Name", text: $name)
-                    
-                    SecureField("Password", text: $pass)
+                    TextField("Name", text:$name)
+                    if flg {
+                        TextField("Password", text: $pass)
+                    } else {
+                        SecureField("Password", text: $pass)
+                    }
                 }
                 
-                Section(header: Text("Account").font(.headline)) {
-                    SecureField("Password", text: $pass2)
+                Section(header:Text("Check").font(.headline)) {
+                    Toggle(isOn: $flg, label: {
+                        Text("show password")
+                    })
                 }
             }
         }
