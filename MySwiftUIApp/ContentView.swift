@@ -12,17 +12,24 @@ struct ContentView: View {
     
     @State var name = ""
     @State var pass = ""
+    @State var pass2 = ""
     
     var body: some View {
         VStack {
-            Text("name:\(self.name)\n (pass:\(self.pass))").font(.title)
-            Form {
-                TextField("Name", text: $name)
-                
-                SecureField("Password", text: $pass)
-            }
+            Text("name:\(self.name)\n \(self.pass == self.pass2 ? "password is OK!" : "password mismatch.")")
+                .font(.title)
             
-            Text("copyright 2020.").font(.footnote)
+            Form {
+                Section(header: Text("Account").font(.headline)) {
+                    TextField("Name", text: $name)
+                    
+                    SecureField("Password", text: $pass)
+                }
+                
+                Section(header: Text("Account").font(.headline)) {
+                    SecureField("Password", text: $pass2)
+                }
+            }
         }
     }
 }
