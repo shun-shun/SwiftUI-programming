@@ -10,29 +10,19 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var name = ""
-    @State var pass = ""
-    @State var flg = false
+    let data = ["One", "Two", "Three", "Four", "Five"]
+    @State var msg = ""
     
     var body: some View {
         VStack {
-            Text("name:\(self.name)\n (pass:\(self.pass))")
-                .font(.title)
+            Text("ItemView List.")
+                .font(.largeTitle)
             
             Form {
                 Section(header: Text("Account").font(.headline)) {
-                    TextField("Name", text:$name)
-                    if flg {
-                        TextField("Password", text: $pass)
-                    } else {
-                        SecureField("Password", text: $pass)
+                    List(data, id:\.self) { item in
+                        Text(item)
                     }
-                }
-                
-                Section(header:Text("Check").font(.headline)) {
-                    Toggle(isOn: $flg, label: {
-                        Text("show password")
-                    })
                 }
             }
         }
